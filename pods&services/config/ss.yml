@@ -22,7 +22,7 @@ spec:
               protocol: TCP
           env:
             - name: MYSQL_ROOT_PASSWORD
-              valuefrom:
+              valueFrom:
                 configMapKeyRef:
                   name: config
                   key: rootpw
