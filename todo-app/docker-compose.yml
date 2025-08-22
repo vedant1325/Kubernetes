@@ -1,18 +1,26 @@
-version: "3.8"
 services: 
   todo-app:
     build:
       context: .
-    container_name: todo-app-container
+      dockerfile: dockerfile
     ports: 
       - "3000:3000"
     networks:
       - mynetwork
-    volumes:
-      - myvol:/var
+    develop:
+      watch:
+        # Sync source code changes into container
+        - path: ./src
+          target: /app/src
+          action: sync
+
+        # If package.json changes, rebuild container
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
 
 volumes:
   myvol:
 networks:
   mynetwork:
-    
