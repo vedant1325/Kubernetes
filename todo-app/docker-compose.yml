@@ -9,7 +9,7 @@ services:
     networks:
       - mynetwork
     volumes:
-      -myvol:/var/lib
+      - myvol:/var/lib
 
 volumes:
   myvol:
