@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    app: my-depapp
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  replicas: 4
+  
+  selector:
+    matchLabels:
+      app: my-depapp
+  
+  template:
+    metadata:
+      name: my-deployment-pod
+      labels:
+        app: my-depapp
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:latest
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"  #vertical autoscaling
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+         
+          ports:
+            - containerPort: 80
+              protocol: TCP
+  
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa1
+  labels: 
+    app: hpa1
+spec:
+  scaleTargetRef:  #Here we apply horizontal scaling on deployment my-app
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-app
+  minReplicas: 1
+  maxReplicas: 5
+  meetrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50  #if cpu utilization goes above 50% it will scale up the pods
