@@ -11,11 +11,11 @@ spec:
       maxSurge: 1
       maxUnavailable: 1
   replicas: 1
-  
+
   selector:
     matchLabels:
       app: my-depapp
-  
+
   template:
     metadata:
       name: my-deployment-pod
@@ -28,24 +28,24 @@ spec:
           resources:
             requests:
               memory: "64Mi"
-              cpu: "250m"  #vertical autoscaling
+              cpu: "250m" #vertical autoscaling
             limits:
               memory: "128Mi"
               cpu: "500m"
-         
+
           ports:
             - containerPort: 80
               protocol: TCP
-  
+
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: hpa1
-  labels: 
+  labels:
     app: hpa1
 spec:
-  scaleTargetRef:  #Here we apply horizontal scaling on deployment my-app
+  scaleTargetRef: #Here we apply horizontal scaling on deployment my-app
     apiVersion: apps/v1
     kind: Deployment
     name: my-app
@@ -57,4 +57,10 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 50  #if cpu utilization goes above 50% it will scale up the pods
+          averageUtilization: 50 #if cpu utilization goes above 50% it will scale up the pods
+
+#Taking pod access
+#kubectl exec -i -t <pod - name> --container <Container-name> --bin/bash
+
+#Creating CPU load
+#timeout 300 sh -c "while :; do :; done"
