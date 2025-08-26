@@ -7,7 +7,7 @@ metadata:
 spec:
   strategy:
     type: RollingUpdate
-    rollingUpadate:
+    rollingUpdate:
       maxSurge: 1
       maxUnavailable: 1
   replicas: 1
