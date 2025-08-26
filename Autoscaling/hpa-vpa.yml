@@ -51,7 +51,7 @@ spec:
     name: my-app
   minReplicas: 1
   maxReplicas: 5
-  meetrics:
+  metrics:
     - type: Resource
       resource:
         name: cpu
