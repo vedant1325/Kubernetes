@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="script" href="script.js" />
+    <title>Minimal Business Website</title>
+    <style>
+      /* Global Styles */
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: white;
+        color: #333;
+        overflow-x: hidden;
+      }
+
+      /* Navbar */
+      nav {
+        background-color: #f8f8f8;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      nav .logo {
+        font-weight: bold;
+        font-size: 1.4rem;
+        color: #222;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav ul li {
+        position: relative;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        position: relative;
+        padding: 8px 12px;
+        transition: color 0.3s ease;
+        overflow: hidden;
+      }
+
+      /* Liquid Hover Effect */
+      nav ul li a::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: #e0e0e0;
+        border-radius: 30px;
+        transition: left 0.3s ease;
+        z-index: -1;
+      }
+
+      nav ul li a:hover::before {
+        left: 0;
+      }
+
+      nav ul li a:hover {
+        color: #000;
+      }
+
+      /* Content Section */
+      .content {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 5rem 2rem;
+        gap: 2rem;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        flex: 1 1 300px;
+        max-width: 400px;
+        opacity: 0;
+        transform: translateX(-100%);
+        transition: all 0.8s ease;
+      }
+
+      .card:nth-child(2) {
+        transform: translateX(100%);
+      }
+
+      .card.show {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .card h2 {
+        margin-top: 0;
+        color: #222;
+      }
+
+      .card p {
+        line-height: 1.6;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <div class="logo">BizSite</div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Content -->
+    <section class="content">
+      <div class="card">
+        <h2>Product Based Business</h2>
+        <p>
+          A product-based business focuses on creating, developing, and selling
+          physical or digital products. It revolves around innovation,
+          manufacturing, and distribution strategies.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Service Based Business</h2>
+        <p>
+          A service-based business provides expertise, labor, or experience to
+          meet the needs of customers. It emphasizes customer relationships,
+          skills, and personalized solutions.
+        </p>
+      </div>
+    </section>
+
+    <!-- Script for slide-in animation -->
+    <script>
+      window.addEventListener("scroll", () => {
+        document.querySelectorAll(".card").forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          if (rect.top <script window.innerHeight - 100) {
+            card.classList.add("show");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
